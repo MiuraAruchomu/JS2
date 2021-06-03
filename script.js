@@ -1,57 +1,94 @@
+const API_URL = "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses"
+
 class GoodsItem {
-    constructor(title, price) {
-        this.title = title;
-        this.price = price;
+    constructor(title, price, id) {
+        this.title = title
+        this.price = price
+        this.id = id
     }
+
     render() {
-        return `<div class="goods-item"><h3>${this.title}</h3><p>${this.price}</p></div>`;
+        return `<div class="goods-item" data-title="${this.title}" data-price="${this.price}" data-id="${this.id}"><h3>${this.title}</h3><p>${this.price}</p><button class="add-to-cart-button" type="button"><i class="fas fa-shopping-basket"></i></button></div>`
     }
 }
 
 class GoodsList {
     constructor() {
-        this.goods = [];
+        this.goods = []
     }
 
-    fetchGoods() {
-        this.goods = [
-            { title: "Shirt", price: 150 },
-            { title: "Socks", price: 50 },
-            { title: "Jacket", price: 350 },
-            { title: "Shoes", price: 250 },
-        ];
+    async fetchGoods() {
+        const responce = await fetch(`${API_URL}/catalogData.json`)
+        if (responce.ok) {
+            const goods = await responce.json()
+            this.goods = goods
+        } else {
+            alert('Произошла ошибка при соединении с сервером!')
+        }
     }
 
     render() {
-        let listHtml = "";
+        let listHtml = ''
         this.goods.forEach((good) => {
-            const goodItem = new GoodsItem(good.title, good.price);
-            listHtml += goodItem.render();
-        });
-        document.querySelector(".goods-list").innerHTML = listHtml;
+            const goodItem = new GoodsItem(good.product_name, good.price, good.id_product)
+            listHtml += goodItem.render()
+        })
+        document.querySelector(".goods-list").innerHTML = listHtml
+    }
+
+    clickHandlers() {
+        const buttonsEl = document.querySelectorAll('.add-to-cart-button')
+        buttonsEl.forEach(button => {
+            button.addEventListener('click', (event) => {
+                let listHTML = ''
+    
+                let good = event.target.closest('div')
+                let goodTitle = good.dataset.title
+                let goodPrice = good.dataset.price
+                let goodId = good.dataset.id
+    
+                let cartItem = new CartItem(goodTitle, goodPrice, goodId)
+                listHTML += cartItem.render()
+                
+                let cartList = document.querySelector('.cart-list')
+                сartList.innerHTML += listHTML
+            })
+        })
     }
 
     calculateTotalCost() {
         let totalCost = 0
-        this.goods.forEach((product) => {
-            totalCost += product.price
+        this.goods.forEach((good) => {
+            totalCost += good.price
         })
         return totalCost
     }
 }
 
-class BasketOfGoods extends GoodsList {
+class CartItem {
+    constructor(title, price, id) {
+        this.title = title
+        this.price = price
+        this.id = id
+    }
 
+    render() {
+        return `<div class="cart-item" data-title="${this.title}" data-price="${this.price}" data-id="${this.id}"><h3>${this.title}</h3><p>${this.price}</p></div>`
+    }
 }
 
-class GoodsItemOfBasket extends GoodsItem {
-    removeItemFromBasket(item){}
+class Cart {
+    constructor() {
+        this.goods = []
+    }
 }
 
-const init = () => {
-    const list = new GoodsList();
-    list.fetchGoods();
-    list.render();
+const init = async () => {
+    const list = new GoodsList()
+    const cartList = new Cart()
+    await list.fetchGoods()
+    list.render()
+    list.clickHandlers()
 };
 
 window.onload = init;
