@@ -51,6 +51,18 @@ button {
     transition-duration: 0.5s;
 }
 
+.cart-item:hover {
+    background-color: #c0eded;
+}
+
+.remove-from-cart-button {
+    cursor: pointer;
+}
+
+.remove-from-cart-button .fa-shopping-basket {
+    color: #ba6176;
+}
+
 .goods-list {
     display: flex;
     flex-direction: row;
