@@ -13,18 +13,12 @@
 <body>
     <div id="app">
         <header>
-            <input type="text" class="goods-search" v-model="searchLine">
-            <button class="search-button" type="button" @click="filterGoods">Поиск</button>
+            <goods-search :search-line="searchLine"></goods-search>
             <button class="cart-button" type="button" @click="showOrHideCart">Корзина</button>
         </header>
         <main>
-            <div class="goods-list">
-                <div class="goods-item" v-for="good in filteredGoods">
-                    <h3>{{good.product_name}}</h1>
-                    <p>{{good.price}}</p>
-                </div>
-            </div>
-            <div class="cart-list" v-if="isVisibleCart"></div>
+            <goods-list :goods="filteredGoods"></goods-list>
+            <cart-list :is-visible-cart="isVisibleCart"></cart-list>
         </main>
     </div>
 

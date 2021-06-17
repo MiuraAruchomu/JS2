@@ -1,5 +1,41 @@
 const API_URL = "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses"
 
+Vue.component('goods-search', {
+    props: ['search-line'],
+    template: `
+        <div class="search">
+            <input type="text" class="goods-search" v-model="search-line">
+            <button class="search-button" type="button" @click="filterGoods">Поиск</button>
+        </div>
+    `
+})
+
+Vue.component('goods-list', {
+    props: ['goods'],
+    template: `
+        <div class="goods-list">
+            <goods-item v-for="goodEntity in goods" :goodProp="goodEntity"></goods-item>
+        </div>
+    `
+})
+
+Vue.component('goods-item', {
+    props: ['goodProp'],
+    template: `
+        <div class="goods-item">
+            <h3>{{goodProp.product_name}}</h3>
+            <p>{{goodProp.price}}</p>
+        </div>
+    `
+})
+
+Vue.component('cart-list', {
+    props: ['is-visible-cart'],
+    template: `
+        <div class="cart-list" v-if="is-visible-cart"></div>
+    `
+})
+
 const app = new Vue({
     el: '#app',
     data: {
@@ -27,7 +63,7 @@ const app = new Vue({
         },
 
         showOrHideCart() {
-            if(this.isVisibleCart === false) {
+            if (this.isVisibleCart === false) {
                 this.isVisibleCart = true
             } else {
                 this.isVisibleCart = false
