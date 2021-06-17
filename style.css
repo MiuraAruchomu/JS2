@@ -11,16 +11,31 @@ button {
     background-color: transparent;
 }
 
-.cart-button {
-    width: 120px;
-    height: 40px;
+.search-button {
+    width: 70px;
+    height: 30px;
+    margin-left: 10px;
     background-color: #d3f0f0;
     border-radius: 5px;
     transition-duration: 0.5s;
 }
 
-.cart-button:hover {
+.search-button:hover {
     background-color: #c0eded;
+    cursor: pointer;
+}
+
+.cart-button {
+    width: 120px;
+    height: 40px;
+    margin-left: 20px;
+    background-color: #97adad;
+    border-radius: 5px;
+    transition-duration: 0.5s;
+}
+
+.cart-button:hover {
+    background-color: #a6c2c2;
     cursor: pointer;
 }
 
@@ -29,11 +44,9 @@ button {
     flex-direction: row;
     flex-wrap: wrap;
     min-height: 16vh;
-    width: 90vw;
-    margin-left: 10px;
-    margin-bottom: 10px;
+    margin-top: 10px;
     border-radius: 5px;
-    background-color: #edfafa;
+    background-color: #97adad;
 }
 
 .cart-item {
@@ -68,6 +81,7 @@ button {
     flex-direction: row;
     flex-wrap: wrap;
     min-height: 60vh;
+    margin-top: 10px;
     border-radius: 5px;
     background-color: #edfafa;
 }
