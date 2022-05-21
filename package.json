@@ -1,0 +1,31 @@
+{
+  "name": "js2",
+  "version": "1.0.0",
+  "description": "JS2",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiuraAruchomu/JS2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MiuraAruchomu/JS2/issues"
+  },
+  "homepage": "https://github.com/MiuraAruchomu/JS2#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/vue-fontawesome": "^2.0.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "node-static": "^0.7.11",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
+  }
+}
