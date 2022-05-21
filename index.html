@@ -6,24 +6,31 @@
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
     <title>eShop</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
-        integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 </head>
 
 <body>
-    <div id="app">
-        <header>
-            <goods-search :search-line="searchLine"></goods-search>
-            <button class="cart-button" type="button" @click="showOrHideCart">Корзина</button>
-        </header>
-        <main>
-            <goods-list :goods="filteredGoods"></goods-list>
-            <cart-list :is-visible-cart="isVisibleCart"></cart-list>
-        </main>
+    <div class="bg">
+        <div id="app">
+            <header>
+                <div class="left-side">
+                    <goods-search :search-line="searchLine" v-model="searchLine"></goods-search>
+                    <button class="search-button" @click="filterGoods">Искать</button>
+                </div>
+                <div class="right-side">
+                    <button class="cart-button" type="button" @click="showOrHideCart">Корзина</button>
+                </div>
+            </header>
+            <div class="cart">
+                <cart-list :is-visible-cart="isVisibleCart" :cart-goods="cartGoods"></cart-list>
+            </div>
+            <main>
+                <goods-list :goods="filteredGoods"></goods-list>
+            </main>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-    <script src="script.js"></script>
+    <script src="main.js" type="module"></script>
 </body>
 
 </html>
