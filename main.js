@@ -1,89 +1,20 @@
-const API_URL = "http://localhost:3000"
+import GoodsList from './components/GoodsList.js'
+import GoodsItem from './components/GoodsItem.js'
+import CartList from './components/CartList.js'
+import CartItem from './components/CartItem.js'
+import GoodsSearch from './components/GoodsSearch.js'
 
-Vue.component('goods-list', {
-    props: ['goods'],
-    template: `
-        <div class="goods-list">
-            <goods-item v-for="goodEntity in goods" :goodProp="goodEntity"></goods-item>
-        </div>
-    `
-})
-
-Vue.component('goods-item', {
-    props: ['goodProp'],
-    methods: {
-        async addToCart() {
-            const responce = await fetch(`${API_URL}/addToCart`, {
-                method: 'POST',
-                mode: 'cors',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(this.goodProp)
-            })
-            if (responce.ok) {
-                const cartGoods = await responce.json()
-                this.$parent.$parent.cartGoods = cartGoods
-                this.$parent.$parent.getCartProducts()
-            } else {
-                alert('Произошла ошибка при соединении с сервером!')
-            }
-        }
-    },
-    template: `
-        <div class="goods-item">
-            <h3>{{goodProp.product_name}}</h3>
-            <p>{{goodProp.price}}</p>
-            <button class="add-to-cart-button" @click="addToCart">Добавить в корзину</button>
-        </div>
-    `
-})
-
-Vue.component('goods-search', {
-    props: ['searchLine'],
-    template: `
-        <input type="search" class="goods-search" v-bind:value="searchLine"
-        v-on:input="$emit('input', $event.target.value)"/>
-    `
-})
-
-Vue.component('cart-list', {
-    props: ['isVisibleCart', 'cartGoods'],
-    template: `
-        <div class="cart-list" v-if="isVisibleCart">
-            <cart-item v-for="goodEntity in cartGoods" :goodProp="goodEntity"></cart-item>
-        </div>
-    `
-})
-
-Vue.component('cart-item', {
-    props: ['goodProp'],
-    methods: {
-        async removeFromCart() {
-            const responce = await fetch(`${API_URL}/removeFromCart`, {
-                method: 'POST',
-                mode: 'cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(this.goodProp)
-            })
-            if (responce.ok) {
-                const cartGoods = await responce.json()
-                this.$parent.$parent.cartGoods = cartGoods
-                this.$parent.$parent.getCartProducts()
-            } else {
-                alert('Произошла ошибка при соединении с сервером!')
-            }
-        }
-    },
-    template: `
-    <div class="cart-item">
-        <h3>{{goodProp.product_name}}</h3>
-        <p>{{goodProp.price}}</p>
-        <button class="remove-from-cart-button" @click="removeFromCart">Удалить из корзины</button>
-    </div>
-    `
-})
+export const API_URL = "http://localhost:3000"
 
 const app = new Vue({
     el: '#app',
+    components: {
+        'goods-list': GoodsList,
+        'goods-item': GoodsItem,
+        'cart-list': CartList,
+        'cart-item': CartItem,
+        'goods-search': GoodsSearch
+      },
     data: {
         goods: [],
         filteredGoods: [],
